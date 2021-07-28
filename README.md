@@ -66,11 +66,11 @@ dd01a3507 Update CHANGELOG.md
 
 225466bc3 Cleanup after v0.12.23 release
 
-5) git log -p -S "func providersource("  --oneline --regexp-ignore-case
+5) git log -S "func providersource("  --oneline --regexp-ignore-case
 
 8c928e835 main: Consult local directories as potential mirrors of providers
 
-6) git log -p -S "func globalPluginDirs"  --oneline --regexp-ignore-case
+6) git log -S "func globalPluginDirs"  --oneline --regexp-ignore-case
 
 plugins.go
 
@@ -86,10 +86,13 @@ git log -L :globalPluginDirs:plugins.go --pretty=format:"%H" --no-patch
 
 8364383c359a6b738a436d1b7745ccdce178df47
 
-7) git log -p -S "synchronizedWriters"  --oneline --regexp-ignore-case
+7) git log -S "synchronizedWriters"  --oneline --regexp-ignore-case
 
-bdfea50cc
+bdfea50cc remove unused
+fd4f7eb0b remove prefixed io
+5ac311e2a main: synchronize writes to VT100-faker on Windows
 
-git show --format="%H %an %ae %cn %ce" -s bdfea50cc
+git show 5ac311e2a
 
-bdfea50cc85161dea41be0fe3381fd98731ff786 James Bardin j.bardin@gmail.com James Bardin j.bardin@gmail.com
+git show --format="%H %an %ae %cn %ce" -s 5ac311e2a
+5ac311e2a91e381e2f52234668b49ba670aa0fe5 Martin Atkins mart@degeneration.co.uk Martin Atkins mart@degeneration.co.uk
