@@ -35,6 +35,7 @@
     размер которой ограничен для каждого пользователя и системы в целом. 
 
 #5
+    
     Команда /usr/sbin/opensnoop-bpfcc запустилать только под пользователм root
     root@vagrant:~# /usr/sbin/opensnoop-bpfcc
     815    vminfo              4   0 /var/run/utmp
