@@ -107,3 +107,71 @@
     [    0.001022] CPU MTRRs all blank - virtualized system.
     [    0.089888] Booting paravirtualized kernel on KVM
     [    2.472185] systemd[1]: Detected virtualization oracle.
+
+#5
+
+    sysctl fs.nr_open - показывает максимальное количество открытых файлов в одном процессе
+    по умолчанию значение 1048576 = 1024*1024 (значение должно быть кратно 1024)
+    
+    sysctl fs.file-max - максимальное количество открыты файлов в системе
+    9223372036854775807
+    
+    ulimit -Sn -мягкий лимит(может быть увеличен пользователем), находится в пределах [0, жесткий лимит]
+    1024
+    
+    ulimit -Hn - жесткий лимит(может изменять только root)
+    1048576
+ 
+#6
+    
+    Запускаю процесс в новом namespace
+    >unshare -f --pid --mount-proc sleep 1h
+    
+    >ps -e |grep sleep
+    2294 pts/1    00:00:00 sleep
+
+    подключаюсь к namespace по PID
+    >nsenter --target 2294 --pid --mount
+
+    >ps -e
+    PID TTY          TIME CMD
+      1 pts/1    00:00:00 sleep
+      2 pts/2    00:00:00 bash
+     40 pts/2    00:00:00 ps
+    
+#7
+
+    Выполнил
+    >:(){ :|:& };:
+    Система подвисла, netdata показал жуткое поглощение ресурсов (скрин create_many_process.png) 
+     
+    :() - определение функции
+    {...} - тело функции
+    
+    : вызывает себя
+    | означает передачу выходных данных в команду
+    : после | означает pipe к функции
+    & означает выполнение команды лева в фоновом режиме
+    Затем ; разделитель команд
+
+    правый символ : запускает вызов бесконечной рекурсии, активируя "бомбу" fork.
+
+    
+    Запустил dmesg
+
+    29 622 413 023 000 000 ns HostLast=1 629 591 067 147 000 000 ns)
+    [ 5276.943693] 08:53:43.042657 timesync vgsvcTimeSyncWorker: Radical guest time change: 31 345 876 831 000ns (GuestNow=1 629 622 423 042 650 000 ns GuestLast=1 629 591 077 165 819 000 ns fSetTimeLastLoop=true )
+    [ 8762.913927] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-24.scope
+    [ 9479.833604] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-26.scope
+    
+    с определённого момента невозможно сделать fork процесса "fork rejected".
+    Предполагаю, что это связано с ограничениями одновременно открытых процессов в сессии.
+    
+    > ulimit -u
+    15389
+    
+    Можно установить ограничение на чиcло процессов
+    ulimit -u 100 -  100 процессов для пользователя
+    
+    установил 100 процессов и запустил :(){ :|:& };:
+    систему отпустило через несколько секунд.
