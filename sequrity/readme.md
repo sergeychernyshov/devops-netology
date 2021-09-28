@@ -68,6 +68,13 @@
     Перехожу на сайт https://192.168.56.104/index.html 
     результат на скриншоте task3_1.png
 
+
+###3.1
+    Добавил в /etc/hosts запись 192.168.56.104  www.chernyshov.com
+    перехожу по сслыке https://www.chernyshov.com
+    Смотрю инфо о сертификате task3.1_1.png
+    Сайт выглядит как на скрине task3.1_2.png
+
 #4
 
     >apt install git
@@ -204,6 +211,65 @@
     
     >ssh oracel@192.168.56.104
 
+
+###5.1
+    
+    хост 192.168.56.104
+    > ssh-keygen
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/root/.ssh/id_rsa):
+    /root/.ssh/id_rsa already exists.
+    Overwrite (y/n)?
+    root@oracle-VirtualBox:~#
+    root@oracle-VirtualBox:~# ssh-keygen
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/root/.ssh/id_rsa):
+    /root/.ssh/id_rsa already exists.
+    Overwrite (y/n)? y
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in /root/.ssh/id_rsa
+    Your public key has been saved in /root/.ssh/id_rsa.pub
+    The key fingerprint is:
+    SHA256:TQloCp9StbGyaeisbSRg7TFgX0d6TL50RI3esJmIQzI root@oracle-VirtualBox
+    The key's randomart image is:
+    +---[RSA 3072]----+
+    |     .++ooo      |
+    | o.E.oB=.+ o     |
+    |. ++*===o.O      |
+    |...*+*o.oB .     |
+    |o o.* ..S .      |
+    |.o.o             |
+    | oo              |
+    | o.              |
+    |...              |
+    +----[SHA256]-----+
+
+    >cd /root/.ssh/
+    >ls -la
+    total 38
+    drwx------ 2 root root    6 сен 28 23:20 .
+    drwx------ 7 root root   13 сен 28 23:17 ..
+    -rw-r--r-- 1 root root  576 сен 26 21:59 authorized_keys
+    -rw------- 1 root root 2610 сен 28 23:22 id_rsa
+    -rw-r--r-- 1 root root  576 сен 28 23:22 id_rsa.pub
+    -rw-r--r-- 1 root root  444 сен 28 23:20 known_hosts
+    root@oracle-VirtualBox:~/.ssh# cat id_rsa.pub
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGy/6xHhV+1EH1fZAXDNlW3PBpkNCE16ZPV+DQtIJK                                                                                                                                                             P75e/VY2FfXq9aIfRkFaf7Ss9tUWjVon7NH6wsIRxsCxtF5avj6wNkhi4JfacqDkY7gRAWBpzXObmQBH                                                                                                                                                             o7c/OLXWLcwDeS6tgG1OulF9QPnX+n0SzCzSNGJG8gpZZaOs2Ws+G/eee3bXuW9VKuAifRJM+Jsxzy18                                                                                                                                                             7Tdj97WPGW9Es+0rgDOg2DHxR+qt2i7ik0JLo9Gnl6z6C/Gk39cpI3UghkOJFMyUkQtKKLAst5quVsOC                                                                                                                                                             +T2kKiWoDUYI7kttiTpad4X07SLStoW6/29FNvlG26bgufvcOYFlXcy4dsyj8HE5kUQmPY/S8spWThP8                                                                                                                                                             91il3JGZ+WN/abO5TvySFUKmto6def2tfX81oldsRy52kmlUBVxkFBYrtU7QhzP9rIvaugRRWwa/ORCf                                                                                                                                                             jS0GZta5WEothGZpzaDTUVdvPm3G8q84CEX6qAbWjJnJu3H9LfcxVtdEfwIFqjx7y0MCAL8= root@or                                                                                                                                                             acle-VirtualBox
+    root@oracle-VirtualBox:~/.ssh# ssh-copy-id oracle@192.168.56.102
+    /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa                                                                                                                                                             .pub"
+    /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter                                                                                                                                                              out any that are already installed
+    /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompt                                                                                                                                                             ed now it is to install the new keys
+    oracle@192.168.56.102's password:
+    
+    Number of key(s) added: 1
+    
+    Now try logging into the machine, with:   "ssh 'oracle@192.168.56.102'"
+    and check to make sure that only the key(s) you wanted were added.
+
+    >ssh oracle@192.168.56.102
+
+
 #6
 
     oracle@oracle-VirtualBox2:>ssh-keygen -C oracle@oracle-VirtualBox2
@@ -214,6 +280,49 @@
     скопировал открытый ключ с VirtualBox2 на VirtualBox
 
     oracle@oracle-VirtualBox:~$ ssh oracle-VirtualBox2
+
+###6.1
+    
+    хост 192.168.56.104
+    >cd /root/.ssh/
+    >ls -la
+    total 38
+    drwx------ 2 root root    6 сен 28 23:54 .
+    drwx------ 7 root root   13 сен 28 23:54 ..
+    -rw-r--r-- 1 root root  576 сен 26 21:59 authorized_keys
+    -rw------- 1 root root 2610 сен 28 23:22 id_rsa
+    -rw-r--r-- 1 root root  576 сен 28 23:22 id_rsa.pub
+    -rw-r--r-- 1 root root  444 сен 28 23:20 known_hosts
+    
+    >mv id_rsa id_rsa2
+    >ls -la
+    total 38
+    drwx------ 2 root root    6 сен 29 00:18 .
+    drwx------ 7 root root   13 сен 28 23:54 ..
+    -rw-r--r-- 1 root root  576 сен 26 21:59 authorized_keys
+    -rw------- 1 root root 2610 сен 28 23:22 id_rsa2
+    -rw-r--r-- 1 root root  576 сен 28 23:22 id_rsa.pub
+    -rw-r--r-- 1 root root  444 сен 28 23:20 known_hosts
+
+    >cat /root/.ssh/config
+    Host connHost
+            Hostname 192.168.56.102
+            Port 22
+            User oracle
+            IdentityFile /root/.ssh/id_rsa2
+
+    >ssh connHost
+    Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.11.0-36-generic x86_64)
+    
+     * Documentation:  https://help.ubuntu.com
+     * Management:     https://landscape.canonical.com
+     * Support:        https://ubuntu.com/advantage
+    
+    25 updates can be applied immediately.
+    To see these additional updates run: apt list --upgradable
+    
+    Your Hardware Enablement Stack (HWE) is supported until April 2025.
+    Last login: Tue Sep 28 23:53:06 2021 from 192.168.56.104
 
 #7
 
