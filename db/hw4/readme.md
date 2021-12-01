@@ -20,6 +20,7 @@
 >psql
 
 ###Вывод списка БД
+
     postgres=# \l+
                                                                        List of databases
        Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   |  Size   | Tablespace |                Description
@@ -32,14 +33,16 @@
     (3 rows)
 
 ###Подключения к БД
+
     postgres-# \c postgres
     You are now connected to database "postgres" as user "postgres".
 
 ###Вывода списка таблиц
+
     postgres-# \dt
     Did not find any relations.
 
-Просматриваю служебные объекты используя параметр S
+    Просматриваю служебные объекты используя параметр S
 
     postgres-# \dtS
                     List of relations
@@ -51,6 +54,7 @@
     (62 rows)
 
 ###Вывода описания содержимого таблиц
+
     postgres-# \dS pg_tablespace
                                     Table "pg_catalog.pg_tablespace"
        Column   |   Type    | Collation | Nullable | Default | Storage  | Stats target | Description
@@ -67,6 +71,7 @@
     Access method: heap
 
 ###Выход из psql
+
     postgres-# \q
     postgres@e91eaf9a1023:/$
 
