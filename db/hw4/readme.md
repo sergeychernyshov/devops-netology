@@ -238,17 +238,45 @@
 
 Можно исключить "ручное" разбиение при проектировании таблицы orders, если изначально сделать таблицу секционированной.
 
+        #4 Преподаватель не согласился с таким решением
+        
+            test_database=# \q
+            postgres@e91eaf9a1023:~/backup$
+        
+        >pg_dump -U postgres -d test_database >test_database_dump_db.sql
+        
+        Можно добавить уникальный индекс 
+        CREATE INDEX ON orders (title);
+        или если нужно обеспечить уникальность не зависимо от регистра
+        CREATE INDEX ON orders (lower(title)); 
+
+
 #4
+Переделаю скрипт 
 
-    test_database=# \q
-    postgres@e91eaf9a1023:~/backup$
+    CREATE TABLE public.orders (
+        id integer NOT NULL,
+        title character varying(80) NOT NULL,
+        price integer DEFAULT 0
+    );
 
->pg_dump -U postgres -d test_database >test_database_dump_db.sql
+на следующий 
 
-Можно добавить уникальный индекс 
-CREATE INDEX ON orders (title);
-или если нужно обеспечить уникальность не зависимо от регистра
-CREATE INDEX ON orders (lower(title)); 
+    CREATE TABLE public.orders (
+        id integer NOT NULL,
+        title character varying(80) NOT NULL,
+        price integer DEFAULT 0
+    );
+
+CREATE UNIQUE INDEX CONCURRENTLY ind_orders_title ON orders (title);
+
+ALTER TABLE public.orders 
+ADD CONSTRAINT unique_orders_title
+UNIQUE USING INDEX ind_orders_title;
+ 
+
+
+
 
 
 
