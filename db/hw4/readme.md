@@ -251,29 +251,38 @@
         CREATE INDEX ON orders (lower(title)); 
 
 
-#4
-Переделаю скрипт 
-
-    CREATE TABLE public.orders (
-        id integer NOT NULL,
-        title character varying(80) NOT NULL,
-        price integer DEFAULT 0
-    );
-
-на следующий 
-
-    CREATE TABLE public.orders (
-        id integer NOT NULL,
-        title character varying(80) NOT NULL,
-        price integer DEFAULT 0
-    );
-
-CREATE UNIQUE INDEX CONCURRENTLY ind_orders_title ON orders (title);
-
-ALTER TABLE public.orders 
-ADD CONSTRAINT unique_orders_title
-UNIQUE USING INDEX ind_orders_title;
+        #4 Преподаватель не согласился с таким решением
+        Переделаю скрипт 
+        
+            CREATE TABLE public.orders (
+                id integer NOT NULL,
+                title character varying(80) NOT NULL,
+                price integer DEFAULT 0
+            );
+        
+        на следующий 
+        
+            CREATE TABLE public.orders (
+                id integer NOT NULL,
+                title character varying(80) NOT NULL,
+                price integer DEFAULT 0
+            );
+        
+        CREATE UNIQUE INDEX CONCURRENTLY ind_orders_title ON orders (title);
+        
+        ALTER TABLE public.orders 
+        ADD CONSTRAINT unique_orders_title
+        UNIQUE USING INDEX ind_orders_title;
  
+#4 
+Сделаю изменения в скрипте создания таблицы
+
+CREATE TABLE public.orders (
+                id integer NOT NULL,
+                title character varying(80) NOT NULL,
+                price integer DEFAULT 0,
+                CONSTRAINT title_unique UNIQUE(title)
+            );
 
 
 
