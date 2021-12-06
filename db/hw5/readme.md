@@ -262,7 +262,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
   
     /usr/share/elasticsearch/snapshots
 
->bash-4.2$ ls -la
+>bash-4.2$ ls -la 
 
     total 56
     drwxr-xr-x 1 elasticsearch elasticsearch  4096 Dec  6 18:35 .
