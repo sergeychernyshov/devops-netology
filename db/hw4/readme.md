@@ -277,12 +277,12 @@
 #4 
 Сделаю изменения в скрипте создания таблицы
 
-CREATE TABLE public.orders (
-                id integer NOT NULL,
-                title character varying(80) NOT NULL,
-                price integer DEFAULT 0,
-                CONSTRAINT title_unique UNIQUE(title)
-            );
+    CREATE TABLE public.orders (
+                    id integer NOT NULL,
+                    title character varying(80) NOT NULL,
+                    price integer DEFAULT 0,
+                    CONSTRAINT title_unique UNIQUE(title)
+                );
 
 
 
