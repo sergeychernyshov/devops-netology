@@ -1,0 +1,21 @@
+version: 3
+projects:
+- name: netology-name
+  # запускать планирование и аплай для двух воркспейсов
+  - dir: /stag
+  - dir: /prod
+  autoplan:
+    # Необходимо включить автопланирование при изменении любых файлов *.tf
+    when_modified: ["*.tf"]
+    enabled: true
+  workflow: netologyworkflow
+workflows:
+  netologyworkflow:
+    plan:
+      steps:
+      # можно будет указать свои дополнительные команды
+      - run: my-custom-command
+    apply:
+      steps:
+        # можно будет указать свои дополнительные команды
+        - run: my-custom-command

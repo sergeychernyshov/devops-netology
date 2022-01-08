@@ -1,0 +1,13 @@
+repos:
+  # регулярное выражение позволяющее работать со всеми репозиториями на github.com
+- id: /github\.com.*/
+  # регулярное выражение позволяющее работать со всеми ветками в репозитории
+  branch: /.*/
+
+workflows:
+  netologyworkflow:
+    plan:
+      steps:
+      - plan:
+          # отмена lock состояния
+          extra_args: ["-lock", "false"]
