@@ -64,5 +64,5 @@ https://github.com/hashicorp/terraform-provider-aws/blob/a7cd46f0c7e33b5e996e8b5
     Please execute the program that consumes these plugins, which will
     load any plugins automatically
 
-Сам провайдер можно найти [тут](terraform)
+Сам провайдер можно найти [тут](terraform-provider-hashicups_v1)
 
