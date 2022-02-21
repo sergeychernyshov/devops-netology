@@ -7,9 +7,9 @@
 
 При помощи команды отправляю ключ на удаленные сервер к которому буду подключаться.
 
->ssh-copy-id elastic@192.168.56.118
->ssh-copy-id kibana@192.168.56.115
->ssh-copy-id app@192.168.56.117
+    >ssh-copy-id elastic@192.168.56.118
+    >ssh-copy-id kibana@192.168.56.115
+    >ssh-copy-id app@192.168.56.117
 
 #2
 Запускаю на Ubuntu 
