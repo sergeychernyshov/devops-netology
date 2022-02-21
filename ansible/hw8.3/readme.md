@@ -18,9 +18,9 @@
 
 Раздаю возможность делать SUDO без пароля
 
-echo "elastic  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/elastic
-echo "kibana  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/kibana
-echo "app  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/app
+    echo "elastic  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/elastic
+    echo "kibana  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/kibana
+    echo "app  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/app
 
 #4
 
