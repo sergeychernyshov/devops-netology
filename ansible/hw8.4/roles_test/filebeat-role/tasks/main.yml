@@ -1,0 +1,33 @@
+---
+- name: "Dowload filebeat's deb"
+  get_url:
+    url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{filebeat_version}}-amd64.deb"
+    dest: "/tmp/filebeat-{{filebeat_version}}-amd64.deb"
+  register: download_filebeat
+  until: download_filebeat is succeeded
+- name: Install filebeat
+  become: true
+  apt: deb="/tmp/filebeat-{{filebeat_version}}-amd64.deb"
+  notify: restart filebeat
+- name: Configure filebeat
+  become: true
+  template:
+    src: filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+    mode: 0755
+  notify: restart filebeat
+- name: Set filebeat systemwork
+  become: true
+  command:
+    cmd: filebeat modules enable system
+    chdir: /usr/share/filebeat/bin
+  register: filebeat_module
+  changed_when: filebeat_module.stdout != 'Module system is alredy enabled'      
+- name: Load Kibana dashbord
+  become: true
+  command:
+    cmd: filebeat setup
+    chdir: /usr/share/filebeat/bin
+  register: filebeat_setup
+  changed_when: false
+  until: filebeat_setup is succeeded

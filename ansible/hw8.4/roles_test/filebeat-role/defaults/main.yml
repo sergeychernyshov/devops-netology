@@ -1,0 +1,4 @@
+---
+ansible_connection: ssh 
+ansible_ssh_user: app 
+filebeat_version: "7.14.0" 

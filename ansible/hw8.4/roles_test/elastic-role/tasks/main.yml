@@ -1,0 +1,17 @@
+---
+  - name: "Download Elasticsearch's deb"
+    get_url:
+      url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elastic_version }}-amd64.deb"
+      dest: "/tmp/elasticsearch-{{ elastic_version }}-amd64.deb"
+      mode: 0755
+    register: download_elastic
+    until: download_elastic is succeeded
+  - name: Install Elasticsearch
+    become: true
+    apt: deb="/tmp/elasticsearch-{{ elastic_version }}-amd64.deb"
+  - name: Configure Elasticsearch
+    become: true
+    template:
+      src: elasticsearch.yml.j2
+      dest: /etc/elasticsearch/elasticsearch.yml
+    notify: restart Elasticsearch

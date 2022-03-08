@@ -1,0 +1,7 @@
+---
+# handlers file for elastic-role
+  - name: restart Elasticsearch
+    become: true
+    service:
+      name: elasticsearch
+      state: restarted
