@@ -1,0 +1,6 @@
+{
+    "ANSIBLE_MODULE_ARGS": {
+        "path": "/tmp/xxx3.txt",
+        "content": "mail3.ru"
+    }
+}
