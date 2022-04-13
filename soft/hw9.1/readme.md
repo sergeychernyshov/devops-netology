@@ -43,5 +43,5 @@ tasks workflow
 
 # Файлы с workflow
 
-- [Bug workflow XML](.https://github.com/sergeychernyshov/devops-netology/blob/main/soft/hw9.1/bug-workflow.xml "Bug workflow XML")
+- [Bug workflow XML](https://github.com/sergeychernyshov/devops-netology/blob/main/soft/hw9.1/bug-workflow.xml "Bug workflow XML")
 - [Tasks workflow XML](https://github.com/sergeychernyshov/devops-netology/blob/main/soft/hw9.1/tasks-workflow.xml "Tasks workflow XML")
