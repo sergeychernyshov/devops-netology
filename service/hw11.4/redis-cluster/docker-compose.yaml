@@ -1,0 +1,156 @@
+version: '2.2'
+
+services:
+  redis01-master:
+    image: redis 
+    user: root
+    sysctls:
+      net.core.somaxconn: 20000
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+    ports:
+      - 7011:7011
+      - 17011:17011
+    volumes:
+      - ./redis01-master/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /var/log/redis/redis01-master/redis.log:/var/log/redis/redis.log
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.11
+        
+  redis02-slave:
+    image: redis 
+    user: root
+    sysctls:
+      net.core.somaxconn: 20000
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+    ports:
+      - 7022:7011
+      - 17022:17011
+    volumes:
+      - ./redis02-slave/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /var/log/redis/redis02-slave/redis.log:/var/log/redis/redis.log
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.22
+        
+  redis02-master:
+    image: redis
+    user: root
+    sysctls:
+      net.core.somaxconn: 20000
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+    ports:
+      - 7021:7021
+      - 17021:17021
+    volumes:
+      - ./redis02-master/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /var/log/redis/redis02-master/redis.log:/var/log/redis/redis.log
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.21
+        
+  redis03-slave:
+    image: redis
+    user: root
+    sysctls:
+      net.core.somaxconn: 20000
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+    ports:
+      - 7032:7031
+      - 17032:17031
+    volumes:
+      - ./redis03-slave/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /var/log/redis/redis03-slave/redis.log:/var/log/redis/redis.log
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.32
+        
+  redis03-master:
+    image: redis
+    user: root
+    sysctls:
+      net.core.somaxconn: 20000
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+    ports:
+      - 7031:7031
+      - 17031:17031
+    volumes:
+      - ./redis03-master/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /var/log/redis/redis03-master/redis.log:/var/log/redis/redis.log
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.31
+        
+  redis01-slave:
+    image: redis
+    user: root
+    sysctls:
+      net.core.somaxconn: 20000
+    ulimits:
+      nofile:
+        soft: 64000
+        hard: 64000
+    ports:
+      - 7012:7011
+      - 17012:17011
+    volumes:
+      - ./redis01-slave/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /var/log/redis/redis01-slave/redis.log:/var/log/redis/redis.log
+      - ./init/redis.sh:/usr/local/etc/redis/redis.sh
+    command: redis-server /usr/local/etc/redis/redis.conf
+    environment:
+        - "./usr/local/etc/redis/redis.sh" 
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.12 
+    depends_on:
+      - redis01-master  
+      - redis02-master
+      - redis02-slave
+      - redis03-master
+      - redis03-slave  
+      - redis-commander      
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    volumes:
+      
+      - /var/log/redis/redis01-slave/redis.log:/var/log/redis/redis.log
+    environment:
+      - REDIS_HOSTS=redis01-master:111.111.0.11:7011,redis02-master:111.111.0.21:7021,redis03-master:111.111.0.31:7031,redis01-slave:111.111.0.12:7012,redis02-slave:111.111.0.22:7022,redis03-slave:111.111.0.32:7032
+    ports:
+      - 8081:8081
+    networks:
+      app_net:
+        ipv4_address: 111.111.0.7 
+
+
+         
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "111.111.0.0/16"
+          gateway: "111.111.0.1"
