@@ -1,35 +1,3 @@
-
-
-
-minikube version
-minikube version: v1.25.2
-commit: 362d5fdc0a3dbee389b3d3f1034e8023e72bd3a7
-
-
-
-
-minikube status
-minikube
-type: Control Plane
-host: Running
-kubelet: Running
-apiserver: Running
-kubeconfig: Configured
-
-
-
-kubectl get pods --namespace=kube-system
-NAME                                     READY   STATUS    RESTARTS   AGE
-coredns-64897985d-24f9l                  1/1     Running   0          21s
-etcd-k8s-virtualbox                      1/1     Running   0          33s
-kube-apiserver-k8s-virtualbox            1/1     Running   0          33s
-kube-controller-manager-k8s-virtualbox   1/1     Running   0          35s
-kube-proxy-9jdss                         1/1     Running   0          21s
-kube-scheduler-k8s-virtualbox            1/1     Running   0          35s
-storage-provisioner                      1/1     Running   0          31s
-
-
-
 #Задача 1: Установить Minikube
 
 Для экспериментов и валидации ваших решений вам нужно подготовить тестовую среду для работы с Kubernetes. Оптимальное решение — развернуть на рабочей машине Minikube.
